@@ -62,11 +62,6 @@ player = Player(room['outside'])
 #
 # If the user enters "q", quit the game.
 directions = ['n', 'e', 's', 'w']
-current_room = player.get_current_room()
-north = current_room.n_to
-east = current_room.e_to
-south = current_room.s_to
-west = current_room.w_to
 
 while True:
     current_room = player.get_current_room()
