@@ -5,19 +5,24 @@ from player import Player
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                    "North of you, the cave mount beckons"),
+                    "North of you, the cave mount beckons",
+                    ["sword", "coins"]),
 
     'foyer':    Room("Foyer",
-                    """Dim light filters in from the south. Dusty passages run north and east."""),
+                    """Dim light filters in from the south. Dusty passages run north and east.""",
+                    ["armor", "coins"]),
 
     'overlook': Room("Grand Overlook",
-                    """A steep cliff appears before you, falling into the darkness. Ahead to the north, a light flickers in the distance, but there is no way across the chasm."""),
+                    """A steep cliff appears before you, falling into the darkness. Ahead to the north, a light flickers in the distance, but there is no way across the chasm.""",
+                    ["water", "coins"]),
 
     'narrow':   Room("Narrow Passage",
-                    """The narrow passage bends here from west to north. The smell of gold permeates the air."""),
+                    """The narrow passage bends here from west to north. The smell of gold permeates the air.""",
+                    ["food", "coins"]),
 
     'treasure': Room("Treasure Chamber",
-                    """You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by earlier adventurers. The only exit is to the south."""),
+                    """You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by earlier adventurers. The only exit is to the south.""",
+                    ["stick", "coins"]),
 }
 
 
@@ -94,6 +99,20 @@ while True:
                 player.set_current_room(west)
             else:
                 print('Can\'t go West')
+    elif 'take' in direction or 'get' in direction:
+        item = direction.split()[1]
+        if item in current_room.get_items():
+            current_room.remove_item(item)
+            player.add_item(item)
+        else:
+            print('You couldn\'t seem to find that item!')
+    elif 'drop' in direction:
+        item = direction.split()[1]
+        if item in player.get_items():
+            player.remove_item(item)
+            current_room.add_item(item)
+        else:
+            print('You couldn\'t seem to find that item!')
     elif direction == 'q':
         print("Exiting Program...")
         break
